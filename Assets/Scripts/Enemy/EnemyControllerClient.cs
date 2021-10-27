@@ -14,25 +14,34 @@ public class EnemyControllerClient : NetworkBehaviour
     private Animator _animator;
     public List<AudioClip> clips = new List<AudioClip>();
 
-    // Start is called before the first frame update
-    void Start()
+
+    private void InitClientController()
     {
-        if (isServer) enabled = false;
+        _source = GetComponent<AudioSource>();
+        Agent = GetComponent<NavMeshAgent>();
+        IsWalking = true;
+        _animator = GetComponentInChildren<Animator>();
+    }
+
+    private void Start()
+    {
+        if (isServer)
+        {
+            enabled = false;
+        }
         else
         {
-            _source = GetComponent<AudioSource>();
-            Agent = GetComponent<NavMeshAgent>();
-            IsWalking = true;
-            _animator = GetComponentInChildren<Animator>();
+            InitClientController();
         }
     }
-
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if (Dest != null && Dest.gameObject.activeSelf && IsWalking) Agent.SetDestination(Dest.position);
+        bool isDestSet = Dest != null && Dest.gameObject.activeSelf;
+        if (isDestSet && IsWalking)
+        {
+            Agent.SetDestination(Dest.position);
+        }
     }
-
     public void SetAnim(string animName, bool isOn)
     {
         _animator.SetBool(animName, isOn);
