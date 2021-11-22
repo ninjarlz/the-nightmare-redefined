@@ -40,8 +40,10 @@ public class GridPoint : MonoBehaviour
     public void changeSprite(bool isGreen)
     {
         Debug.Log("Changing colour");
-        if (isGreen)
+        if (isGreen) 
+        {
             _sprite.sprite = _green;
+        }
         else
         {
             Debug.Log("Changing to red");
