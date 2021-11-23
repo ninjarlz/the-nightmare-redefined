@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Net.Mime;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Experimental.UIElements;
-using UnityEngine.Networking;
+using UnityEngine.UI;
+using Mirror;
 using Image = UnityEngine.UI.Image;
 
 public class CapturePointsUI : NetworkBehaviour

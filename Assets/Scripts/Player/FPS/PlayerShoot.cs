@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Networking;
+using Mirror;
 using UnityEngine.AI;
 
 public class PlayerShoot : NetworkBehaviour {
@@ -305,38 +305,36 @@ public class PlayerShoot : NetworkBehaviour {
     }
 
     [Command]
-    public void CmdExplodeBarrel(NetworkInstanceId objectId)
+    public void CmdExplodeBarrel(uint objectId)
     {
-        var Barrel = NetworkServer.FindLocalObject(objectId).GetComponent<Barrel>();
+        var Barrel = NetworkServer.spawned[objectId].gameObject.GetComponent<Barrel>();
         Barrel.Explode();
     }
 
 
     [Command]
-    public void CmdSetAuthAndExplode(NetworkInstanceId objectId, NetworkIdentity player)
+    public void CmdSetAuthAndExplode(uint objectId, NetworkIdentity player)
     {
-        var iObject = NetworkServer.FindLocalObject(objectId);
+        var iObject = NetworkServer.spawned[objectId].gameObject;
         Debug.Log(iObject.name);
-        var networkIdentity = iObject.GetComponent<NetworkIdentity>();
-        var otherOwner = networkIdentity.clientAuthorityOwner;
+        NetworkIdentity networkIdentity = iObject.GetComponent<NetworkIdentity>();
+        NetworkConnectionToClient otherOwner = networkIdentity.connectionToClient;
         Debug.Log(otherOwner.connectionId);
-        if (otherOwner == player.connectionToClient)
+        if (otherOwner.Equals(player.connectionToClient))
         {
             Debug.Log("ZAJEBSICIE");
             return;
         }
-        else
-        {
-            if (otherOwner != null)
-            {
-                networkIdentity.RemoveClientAuthority(otherOwner);
-            }
-            networkIdentity.AssignClientAuthority(player.connectionToClient);
-            Debug.Log("DOWOD ZODNOSCI: ");
-            Debug.Log(networkIdentity.clientAuthorityOwner.ToString());
 
-            Debug.Log(player.connectionToClient.ToString());
+        if (otherOwner != null)
+        {
+            networkIdentity.RemoveClientAuthority();
         }
+        networkIdentity.AssignClientAuthority(player.connectionToClient);
+        Debug.Log("DOWOD ZODNOSCI: ");
+        Debug.Log(networkIdentity.connectionToClient.ToString());
+
+        Debug.Log(player.connectionToClient.ToString());
     }
 
     private void playSound(AudioClip clip)

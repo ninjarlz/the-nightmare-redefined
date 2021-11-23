@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Networking;
+using Mirror;
 
 public class PlacementController : NetworkBehaviour
 {
@@ -15,7 +15,6 @@ public class PlacementController : NetworkBehaviour
     private string _currentTag;
     private Transform _buildingCameraHolder;
     private Camera _buildingCamera;
-    private float _buildingCameraAngle = 0f;
     private Camera _actionCamera;
     private Camera _currentCamera;
     [SerializeField] private GameObject _gridPointPrefab;
@@ -82,7 +81,7 @@ public class PlacementController : NetworkBehaviour
         _buildingCamera = _buildingCameraHolder.GetComponentInChildren<Camera>();
         _camMaxZoom = _buildingCamera.transform.position.y;
         _camMinZoom = 1f;
-        _currentCamera = _actionCamera = gameObject.transform.Find("PlayerCamera").GetComponent<Camera>();
+        _currentCamera = gameObject.transform.Find("PlayerCamera").GetComponent<Camera>();
         
     }
 

@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using UnityEngine.Networking;
+using Mirror;
 using UnityEngine.Networking.Match;
 
 public class PauseGame : MonoBehaviour

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Networking;
+using Mirror;
 using Random = System.Random;
 using UnityEngine.SceneManagement;
 using UnityEngine.Networking.Match;
@@ -24,7 +24,6 @@ public class PlayerManager : NetworkBehaviour
     private GameObject _cross;
     private Rigidbody _rigidbody;
     private Animator _playerAnimator;
-    private static bool isRevived = false;
     [SerializeField] private GameObject _cameraReviving;
     private GameObject _camera;
     [SerializeField] private GameObject _aliveCollider;
@@ -228,7 +227,6 @@ public class PlayerManager : NetworkBehaviour
         CmdSwitchColliders(false);
         GameManager.DeactivatePlayer(transform.name);
         ChangeCamera(true);
-        isRevived = true;
         
         transform.GetComponent<PlayerEquipment>().getActiveWeapon().transform.GetComponent<Animator>().SetBool("isHidden", false);
         transform.GetComponent<PlayerEquipment>().getActiveWeapon().transform.GetComponent<Animator>().SetBool("isSprinting", false);
@@ -251,7 +249,6 @@ public class PlayerManager : NetworkBehaviour
         Debug.Log("reviving shit");
         _rigidbody.isKinematic = false;
         _rigidbody.collisionDetectionMode = CollisionDetectionMode.Continuous;
-        isRevived = false;
         ChangeCamera(false);
         _playerAnimator.SetBool("revive", true);
         //yield return new WaitForSeconds(GameManager.Instance.MatchSettings.RespawnTime);
@@ -272,10 +269,5 @@ public class PlayerManager : NetworkBehaviour
             transform.GetComponent<PlayerEquipment>().getActiveWeapon().transform.localPosition = new Vector3(0.08f, -0.02f, -0.17f);
             transform.GetComponent<PlayerEquipment>().getActiveWeapon().transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
         }
-    }
-
-    public override void OnDeserialize(NetworkReader reader, bool initialState)
-    {
-        base.OnDeserialize(reader, initialState);
     }
 }

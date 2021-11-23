@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using UnityEngine.Networking;
+using Mirror;
 using UnityEngine.AI;
 using System.Collections;
 using System.Collections.Generic;
@@ -40,10 +40,7 @@ public class EnemyControllerServer : NetworkBehaviour
     public List<AudioClip> clips = new List<AudioClip>();
 
     public Snares SnaresToDestroy { get; set; }
-
-    private bool _init = false;
     public bool IsTriggerLocked { get; set; }
-
     public bool ShouldScream { get; set; }
     private void Start()
     {
@@ -52,7 +49,7 @@ public class EnemyControllerServer : NetworkBehaviour
         if (!isServer) enabled = false;
         else
         {
-            int randInt = Random.RandomRange(0, 5);
+            int randInt = Random.Range(0, 5);
             if (randInt == 0) ShouldScream = true;
             _source = GetComponent<AudioSource>();
             StartCoroutine(SetClosestCaptureAreaStart());

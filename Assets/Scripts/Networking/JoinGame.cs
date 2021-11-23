@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections.Generic;
 using TMPro;
-using UnityEngine.Networking;
+using Mirror;
 using UnityEngine.Networking.Match;
 using UnityEngine.Serialization;
 
