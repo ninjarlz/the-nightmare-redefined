@@ -1,8 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class GunSpawnPoint : MonoBehaviour
+namespace Weapons
 {
-    public int WeaponId;
+    public class GunSpawnPoint : MonoBehaviour
+    {
+        public int WeaponId;
+    }
 }

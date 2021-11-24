@@ -1,20 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using GameLogic;
 using UnityEngine;
 
-public class ButtonsControll : MonoBehaviour
+namespace UI
 {
-    public static bool screensOver = false;
-    public void SkipWelcomeScreen()
+    public class ButtonsControll : MonoBehaviour
     {
-        transform.GetChild(0).gameObject.SetActive(false);
-        transform.GetChild(1).gameObject.SetActive(true);
-    }
+        public static bool screensOver = false;
+        public void SkipWelcomeScreen()
+        {
+            transform.GetChild(0).gameObject.SetActive(false);
+            transform.GetChild(1).gameObject.SetActive(true);
+        }
 
-    public void SkipControls()
-    {
-        transform.GetChild(1).gameObject.SetActive(false);
-        screensOver = true;
-        GameManager.IsListeningForReady = true;
+        public void SkipControls()
+        {
+            transform.GetChild(1).gameObject.SetActive(false);
+            screensOver = true;
+            GameManager.IsListeningForReady = true;
+        }
     }
 }

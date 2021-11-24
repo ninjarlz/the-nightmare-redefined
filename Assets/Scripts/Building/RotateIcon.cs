@@ -1,23 +1,25 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using GameLogic;
 using UnityEngine;
 
-public class RotateIcon : MonoBehaviour
+namespace Building
 {
-    private float _playerIconRotation = 0f;
-    private Quaternion _rotation;
-
-    private void Start()
+    public class RotateIcon : MonoBehaviour
     {
-        _rotation = transform.rotation;
-    }
+        private float _playerIconRotation;
+        private Quaternion _rotation;
 
-    private void Update()
-    {
-        if (GameManager.LocalPlayer != null)
+        private void Start()
         {
-            _playerIconRotation = GameManager.LocalPlayer.transform.rotation.eulerAngles.y;
+            _rotation = transform.rotation;
         }
-        transform.rotation = Quaternion.Euler(90, _rotation.y, -_playerIconRotation);
+
+        private void Update()
+        {
+            if (GameManager.LocalPlayer != null)
+            {
+                _playerIconRotation = GameManager.LocalPlayer.transform.rotation.eulerAngles.y;
+            }
+            transform.rotation = Quaternion.Euler(90, _rotation.y, -_playerIconRotation);
+        }
     }
 }

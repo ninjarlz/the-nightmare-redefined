@@ -1,28 +1,30 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Player.FPS;
 using UnityEngine;
 
-public class EnemyPlayerDetector : MonoBehaviour
+namespace Enemy
 {
-
-    private EnemyControllerServer _enemyControllerServer;
-    // Start is called before the first frame update
-    void Start()
+    public class EnemyPlayerDetector : MonoBehaviour
     {
-        if (GetComponentInParent<EnemyControllerServer>().enabled)
+
+        private EnemyControllerServer _enemyControllerServer;
+        // Start is called before the first frame update
+        void Start()
         {
-            _enemyControllerServer = GetComponentInParent<EnemyControllerServer>();
+            if (GetComponentInParent<EnemyControllerServer>().enabled)
+            {
+                _enemyControllerServer = GetComponentInParent<EnemyControllerServer>();
+            }
+            else enabled = false;
         }
-        else enabled = false;
-    }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (enabled && !_enemyControllerServer.IsTriggerLocked && other.CompareTag("Player"))
+        private void OnTriggerEnter(Collider other)
         {
-            _enemyControllerServer.PlayerDetected(other.GetComponentInParent<PlayerManager>().transform);
+            if (enabled && !_enemyControllerServer.IsTriggerLocked && other.CompareTag("Player"))
+            {
+                _enemyControllerServer.PlayerDetected(other.GetComponentInParent<PlayerManager>().transform);
+            }
         }
+
+
     }
-
-
 }

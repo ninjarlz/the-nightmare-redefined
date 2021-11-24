@@ -1,5 +1,10 @@
 ﻿using System.Collections.Generic;
+using GameLogic;
+using Networking;
+using Player.FPS;
 using TMPro;
+using Traps;
+using Traps.TeddyBear;
 using UnityEngine;
 using UnityEngine.Networking;
 

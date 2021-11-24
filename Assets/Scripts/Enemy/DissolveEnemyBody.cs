@@ -1,45 +1,46 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class DissolveEnemyBody : MonoBehaviour
+namespace Enemy
 {
-
-    private const string DISSOLVE_AMOUNT_SHADER_PROP = "_DissolveAmount";
-    private Material material;
-    private EnemyControllerServer _enemyControllerServer;
-    private float _dissolveAmount = 0f;
-    public bool Enabled { get; set; }
-    public float DissolveAmount { get => _dissolveAmount; }
-
-
-    private void Init()
+    public class DissolveEnemyBody : MonoBehaviour
     {
-        material = GetComponent<Renderer>().material;
-        Enabled = false;
-        _enemyControllerServer = GetComponentInParent<EnemyControllerServer>();
-    }
 
-    private void Start()
-    {
-        Init();
-    }
+        private const string DISSOLVE_AMOUNT_SHADER_PROP = "_DissolveAmount";
+        private Material material;
+        private EnemyControllerServer _enemyControllerServer;
+        private float _dissolveAmount = 0f;
+        public bool Enabled { get; set; }
+        public float DissolveAmount { get => _dissolveAmount; }
 
-    private void Update()
-    {
-        if (Enabled)
+
+        private void Init()
         {
-            Dissolve();
+            material = GetComponent<Renderer>().material;
+            Enabled = false;
+            _enemyControllerServer = GetComponentInParent<EnemyControllerServer>();
         }
-    }
 
-    private void Dissolve()
-    {
-        _dissolveAmount += Time.deltaTime / 3;
-        material.SetFloat(DISSOLVE_AMOUNT_SHADER_PROP, DissolveAmount);
-        if (_dissolveAmount >= 1)
+        private void Start()
         {
-            Destroy(_enemyControllerServer.gameObject);
+            Init();
+        }
+
+        private void Update()
+        {
+            if (Enabled)
+            {
+                Dissolve();
+            }
+        }
+
+        private void Dissolve()
+        {
+            _dissolveAmount += Time.deltaTime / 3;
+            material.SetFloat(DISSOLVE_AMOUNT_SHADER_PROP, DissolveAmount);
+            if (_dissolveAmount >= 1)
+            {
+                Destroy(_enemyControllerServer.gameObject);
+            }
         }
     }
 }

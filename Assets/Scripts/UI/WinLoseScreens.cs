@@ -1,33 +1,33 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class WinLoseScreens : MonoBehaviour
+namespace UI
 {
-    private GameObject _win;
-    private GameObject _lose;
-    public static bool winLoseActive = false;
-
-    private void Start()
+    public class WinLoseScreens : MonoBehaviour
     {
-        _win = transform.GetChild(0).gameObject;
-        _lose = transform.GetChild(1).gameObject;
-    }
+        private GameObject _win;
+        private GameObject _lose;
+        public static bool winLoseActive = false;
 
-    public void ActivateScreen(bool isWin)
-    {
-        if(isWin)
-            _win.SetActive(true);
-        else
-            _lose.SetActive(true);
+        private void Start()
+        {
+            _win = transform.GetChild(0).gameObject;
+            _lose = transform.GetChild(1).gameObject;
+        }
+
+        public void ActivateScreen(bool isWin)
+        {
+            if(isWin)
+                _win.SetActive(true);
+            else
+                _lose.SetActive(true);
         
-        winLoseActive = true;
-    }
+            winLoseActive = true;
+        }
 
-    public void ReturnToMenu()
-    {
-        SceneManager.LoadScene("MainMenu");
+        public void ReturnToMenu()
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
     }
 }

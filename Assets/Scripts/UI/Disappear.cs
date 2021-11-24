@@ -1,18 +1,20 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Disappear : MonoBehaviour
+namespace UI
 {
-    public float time;
-    void Start()
+    public class Disappear : MonoBehaviour
     {
-        StartCoroutine(Fade());
-    }
+        public float time;
+        void Start()
+        {
+            StartCoroutine(Fade());
+        }
 
-    private IEnumerator Fade()
-    {
-        yield return new WaitForSeconds(time);
-        Destroy(gameObject);
+        private IEnumerator Fade()
+        {
+            yield return new WaitForSeconds(time);
+            Destroy(gameObject);
+        }
     }
 }

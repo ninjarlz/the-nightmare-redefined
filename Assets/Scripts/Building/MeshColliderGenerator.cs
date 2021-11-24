@@ -1,34 +1,34 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEditor;
+﻿using UnityEngine;
 
-[ExecuteInEditMode]
-public class MeshColliderGenerator : MonoBehaviour
+namespace Building
 {
-    // Start is called before the first frame update
-    void Awake()
+    [ExecuteInEditMode]
+    public class MeshColliderGenerator : MonoBehaviour
     {
-        AddMeshColliderRecursively(transform);
-    }
-    void AddMeshColliderRecursively(Transform obj)
-    {
-        if (obj == null) 
+        // Start is called before the first frame update
+        void Awake()
         {
-            return;
+            AddMeshColliderRecursively(transform);
         }
-        if (obj.GetComponent<MeshRenderer>() != null) 
+        void AddMeshColliderRecursively(Transform obj)
         {
-            obj.gameObject.AddComponent<BoxCollider>();
-        }
-        foreach (Transform child in obj.transform)
-        {
-            if (child == null) 
+            if (obj == null) 
             {
-                continue;
+                return;
             }
-            AddMeshColliderRecursively(child);
+            if (obj.GetComponent<MeshRenderer>() != null) 
+            {
+                obj.gameObject.AddComponent<BoxCollider>();
+            }
+            foreach (Transform child in obj.transform)
+            {
+                if (child == null) 
+                {
+                    continue;
+                }
+                AddMeshColliderRecursively(child);
+            }
         }
-    }
 
+    }
 }

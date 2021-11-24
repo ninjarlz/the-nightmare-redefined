@@ -1,90 +1,67 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using GameLogic;
 using UnityEngine;
 
-public class Room : MonoBehaviour
+namespace Building
 {
-    private List<GameObject> _buildingPoints = new List<GameObject>();
-
-    [SerializeField] private int _width;
-    public int Width { get { return _width; } }
-    [SerializeField] private int _height;
-    public int Height { get { return _height; } }
-    [SerializeField] private int _areas;
-    public int Areas { get { return _areas; } }
-    [SerializeField] private int _enemySpawnPointsCounter;
-    public int EnemySpawnPointsCounter { get { return _enemySpawnPointsCounter; } }
-    private List<GridPoint> _gridPoints = new List<GridPoint>();
-    private List<CaptureArea> _captureAreas = new List<CaptureArea>();
-    public List<CaptureArea> CaptureAreas { get { return _captureAreas; } }
-    private List<GameObject> _enemySpawnPoints = new List<GameObject>();
-    public List<GameObject> EnemySpawnPoint { get { return _enemySpawnPoints; } }
-    public bool roomCaptured;
-    [SerializeField] private bool _hasChest;
-    public bool HasChest { get { return _hasChest; } set { _hasChest = value; } }
-
-
-    public enum RoomPhase { Prepare, Defend, Collect};
-    private RoomPhase _currentRoomPhase = RoomPhase.Prepare;
-    public RoomPhase CurrentRoomPhase { get { return _currentRoomPhase; } set { _currentRoomPhase = value; } }
-    
-    
-
-    public void Setup()
+    public class Room : MonoBehaviour
     {
-        Transform points = transform.GetChild(1);
-        for (int i = 0; i < points.childCount; i++)
-        {
-            _gridPoints.Add(points.GetChild(i).GetComponent<GridPoint>());
-        }
-        Transform areas = transform.GetChild(3);
-        for (int i = 0; i < areas.childCount; i++)
-        {
-            GameManager.Instance.EnemySpawnPoints.Add(areas.GetChild(i).name, areas.GetChild(i));
-            _enemySpawnPoints.Add(areas.GetChild(i).gameObject);
-        }
-        GameManager.GridRenderes.Add(transform.GetChild(0).gameObject);
+        [SerializeField] private int _width;
+        public int Width => _width;
+        [SerializeField] private int _height;
+        public int Height => _height;
+        [SerializeField] private int _areas;
+        public int Areas => _areas;
+        [SerializeField] private int _enemySpawnPointsCounter;
+        public int EnemySpawnPointsCounter => _enemySpawnPointsCounter;
+        private List<GridPoint> _gridPoints = new List<GridPoint>();
+        private List<CaptureArea> _captureAreas = new List<CaptureArea>();
+        public List<CaptureArea> CaptureAreas => _captureAreas;
+        private readonly List<GameObject> _enemySpawnPoints = new List<GameObject>();
+        public List<GameObject> EnemySpawnPoint => _enemySpawnPoints;
+        public bool roomCaptured;
+        [SerializeField] private bool _hasChest;
+        public bool HasChest => _hasChest;
 
-        Transform captures = transform.GetChild(2);
-        for (int i = 0; i < captures.childCount; i++)
+
+        public enum RoomPhase { Prepare, Defend, Collect};
+        public RoomPhase CurrentRoomPhase { get; set; } = RoomPhase.Prepare;
+
+
+        public void Setup()
         {
-            _captureAreas.Add(captures.GetChild(i).GetComponent<CaptureArea>());
+            FillGridPointsData();
+            FillEnemySpawnPointsData();
+            FillCaptureAreasData();
+        }
+
+        private void FillGridPointsData()
+        {
+            Transform points = transform.GetChild(1);
+            for (int i = 0; i < points.childCount; i++)
+            {
+                _gridPoints.Add(points.GetChild(i).GetComponent<GridPoint>());
+            }
+        }
+
+        private void FillEnemySpawnPointsData()
+        {
+            Transform areas = transform.GetChild(3);
+            for (int i = 0; i < areas.childCount; i++)
+            {
+                GameManager.Instance.EnemySpawnPoints.Add(areas.GetChild(i).name, areas.GetChild(i));
+                _enemySpawnPoints.Add(areas.GetChild(i).gameObject);
+            }
+            GameManager.GridRenderes.Add(transform.GetChild(0).gameObject);
+        }
+
+        private void FillCaptureAreasData()
+        {
+            Transform captures = transform.GetChild(2);
+            for (int i = 0; i < captures.childCount; i++)
+            {
+                _captureAreas.Add(captures.GetChild(i).GetComponent<CaptureArea>());
+            }
         }
     }
-
-    void Update()
-    {
-       /* bool check = true;
-        foreach (CaptureArea capture in _captureAreas)
-        {
-            if (!capture._isCaptured)
-            {
-                check = false;
-                break;
-            }
-        }
-
-        if (check && !roomCaptured)
-        {
-            roomCaptured = true;
-            foreach (GameObject spawn in _enemySpawnPoints)
-            {
-                GameManager instance = GameManager.Instance;
-                instance.EnemySpawnPoints.Remove(spawn.transform.name);
-                spawn.SetActive(false);
-            }
-        }
-        else if (!check && roomCaptured)
-        {
-            roomCaptured = false;
-            foreach (GameObject spawn in _enemySpawnPoints)
-            {
-                GameManager instance = GameManager.Instance;
-                if (!instance.EnemySpawnPoints.ContainsKey(spawn.transform.name)) instance.EnemySpawnPoints.Add(spawn.transform.name, spawn.transform);
-                spawn.SetActive(true);
-            }
-
-        }*/
-    }
-    
 }

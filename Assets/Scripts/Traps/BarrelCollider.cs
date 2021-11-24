@@ -1,32 +1,35 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Enemy;
+using Player.FPS;
 using UnityEngine;
 
-public class BarrelCollider : MonoBehaviour
+namespace Traps
 {
-    public bool server = false;
-    private float _damage;
-    void Start()
+    public class BarrelCollider : MonoBehaviour
     {
-        _damage = transform.GetComponentInParent<Barrel>().damage;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (server)
+        public bool server = false;
+        private float _damage;
+        void Start()
         {
-            Debug.Log("Is server");
-            if (other.CompareTag("EnemyLegs") || other.CompareTag("EnemyHead") || other.CompareTag("EnemyBody"))
+            _damage = transform.GetComponentInParent<Barrel>().damage;
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (server)
             {
-                other.GetComponentInParent<EnemyControllerServer>().CmdTakeDamage(_damage);
-            }
-            else if (other.CompareTag("Player"))
-            {
-                other.GetComponentInParent<PlayerManager>().RpcTakeDamage(45f);
-            }
-            else if (other.CompareTag("Barrel"))
-            {
-                other.GetComponent<Barrel>().Explode();
+                Debug.Log("Is server");
+                if (other.CompareTag("EnemyLegs") || other.CompareTag("EnemyHead") || other.CompareTag("EnemyBody"))
+                {
+                    other.GetComponentInParent<EnemyControllerServer>().CmdTakeDamage(_damage);
+                }
+                else if (other.CompareTag("Player"))
+                {
+                    other.GetComponentInParent<PlayerManager>().RpcTakeDamage(45f);
+                }
+                else if (other.CompareTag("Barrel"))
+                {
+                    other.GetComponent<Barrel>().Explode();
+                }
             }
         }
     }

@@ -1,23 +1,21 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-[ExecuteInEditMode]
-public class DeletePointsWithoutRenderer : MonoBehaviour
+namespace Building
 {
-    // Start is called before the first frame update
-    void Awake()
+    [ExecuteInEditMode]
+    public class DeletePointsWithoutRenderer : MonoBehaviour
     {
-        foreach (Transform child in transform)
+        // Start is called before the first frame update
+        void Awake()
         {
-            GridPoint gridPoint = child.GetComponent<GridPoint>();
-            if (gridPoint.getSpriteRenderer() == null) DestroyImmediate(child.gameObject); 
+            foreach (Transform child in transform)
+            {
+                GridPoint gridPoint = child.GetComponent<GridPoint>();
+                if (gridPoint.GetSpriteRenderer() == null)
+                {
+                    DestroyImmediate(child.gameObject);
+                }
+            }
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

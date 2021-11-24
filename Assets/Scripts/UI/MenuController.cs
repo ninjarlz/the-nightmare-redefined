@@ -1,22 +1,23 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MenuController : MonoBehaviour
+namespace UI
 {
-    public void GoToLobby()
+    public class MenuController : MonoBehaviour
     {
-        SceneManager.LoadScene("LobbyTests");
-    }
+        public void GoToLobby()
+        {
+            SceneManager.LoadScene("LobbyTests");
+        }
 
-    public void LoadScene(string sceneName)
-    {
-        SceneManager.LoadScene(sceneName);
-    }
+        public void LoadScene(string sceneName)
+        {
+            SceneManager.LoadScene(sceneName);
+        }
 
-    public void Quit()
-    {
-        Application.Quit();
+        public void Quit()
+        {
+            Application.Quit();
+        }
     }
 }

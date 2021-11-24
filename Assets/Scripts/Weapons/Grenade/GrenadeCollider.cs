@@ -1,35 +1,38 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using Enemy;
+using Player.FPS;
+using Traps;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class GrenadeCollider : NetworkBehaviour
+namespace Weapons.Grenade
 {
-    public bool server = false;
-    private float _damage;
-    void Start()
+    public class GrenadeCollider : NetworkBehaviour
     {
-        _damage = transform.GetComponentInParent<Grenade>()._damage;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        Debug.Log("Trigger");
-        if (server)
+        public bool server = false;
+        private float _damage;
+        void Start()
         {
-            Debug.Log("Is server");
-            if (other.CompareTag("EnemyLegs") || other.CompareTag("EnemyHead") || other.CompareTag("EnemyBody"))
+            _damage = transform.GetComponentInParent<Grenade>()._damage;
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            Debug.Log("Trigger");
+            if (server)
             {
-                other.GetComponentInParent<EnemyControllerServer>().CmdTakeDamage(_damage);
-            }
-            else if (other.CompareTag("Player"))
-            {
-                other.GetComponentInParent<PlayerManager>().RpcTakeDamage(45f);
-            }
-            else if (other.CompareTag("Barrel"))
-            {
-                other.GetComponent<Barrel>().Explode();
+                Debug.Log("Is server");
+                if (other.CompareTag("EnemyLegs") || other.CompareTag("EnemyHead") || other.CompareTag("EnemyBody"))
+                {
+                    other.GetComponentInParent<EnemyControllerServer>().CmdTakeDamage(_damage);
+                }
+                else if (other.CompareTag("Player"))
+                {
+                    other.GetComponentInParent<PlayerManager>().RpcTakeDamage(45f);
+                }
+                else if (other.CompareTag("Barrel"))
+                {
+                    other.GetComponent<Barrel>().Explode();
+                }
             }
         }
     }

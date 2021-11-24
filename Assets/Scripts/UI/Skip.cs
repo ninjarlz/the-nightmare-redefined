@@ -1,31 +1,31 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Video;
 
-public class Skip : MonoBehaviour
+namespace UI
 {
-    [SerializeField] private GameObject _player;
-    [SerializeField] private AudioSource _source; 
-
-    private void Start()
+    public class Skip : MonoBehaviour
     {
-        _player.GetComponent<VideoPlayer>().loopPointReached += Kill;
-    }
+        [SerializeField] private GameObject _player;
+        [SerializeField] private AudioSource _source; 
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        private void Start()
         {
-            Kill(_player.GetComponent<VideoPlayer>());
+            _player.GetComponent<VideoPlayer>().loopPointReached += Kill;
         }
-    }
 
-    private void Kill(VideoPlayer vp)
-    {
-        Destroy(_player);
-        _source.enabled = true;
-        Destroy(gameObject);
+        void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                Kill(_player.GetComponent<VideoPlayer>());
+            }
+        }
+
+        private void Kill(VideoPlayer vp)
+        {
+            Destroy(_player);
+            _source.enabled = true;
+            Destroy(gameObject);
+        }
     }
 }

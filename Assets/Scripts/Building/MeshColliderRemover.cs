@@ -1,22 +1,32 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-[ExecuteInEditMode]
-public class MeshColliderRemover : MonoBehaviour
+namespace Building
 {
-    void Awake()
+    [ExecuteInEditMode]
+    public class MeshColliderRemover : MonoBehaviour
     {
-        RemoveMeshColliderRecursively(transform);
-    }
-    void RemoveMeshColliderRecursively(Transform obj)
-    {
-        if (obj == null) return;
-        if (obj.GetComponent<BoxCollider>() != null) DestroyImmediate(obj.gameObject.GetComponent<BoxCollider>());
-        foreach (Transform child in obj.transform)
+        void Awake()
         {
-            if (child == null) continue;
-            RemoveMeshColliderRecursively(child);
+            RemoveMeshColliderRecursively(transform);
+        }
+        void RemoveMeshColliderRecursively(Transform obj)
+        {
+            if (obj == null)
+            {
+                return;
+            }
+            if (obj.GetComponent<BoxCollider>() != null)
+            {
+                DestroyImmediate(obj.gameObject.GetComponent<BoxCollider>());
+            }
+            foreach (Transform child in obj.transform)
+            {
+                if (child == null)
+                {
+                    continue;
+                }
+                RemoveMeshColliderRecursively(child);
+            }
         }
     }
 }

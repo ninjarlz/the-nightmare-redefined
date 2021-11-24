@@ -1,63 +1,66 @@
-﻿using UnityEngine;
-using UnityEngine.Networking;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.AI;
-using System.Collections.Generic;
+using UnityEngine.Networking;
 
-public class EnemyControllerClient : NetworkBehaviour
+namespace Enemy
 {
-
-    public NavMeshAgent Agent { get; set; }
-    public Transform Dest { get; set; }
-
-    private AudioSource _source;
-    public bool IsWalking { get; set; }
-    private Animator _animator;
-    public List<AudioClip> clips = new List<AudioClip>();
-
-
-    private void InitClientController()
+    public class EnemyControllerClient : NetworkBehaviour
     {
-        _source = GetComponent<AudioSource>();
-        Agent = GetComponent<NavMeshAgent>();
-        IsWalking = true;
-        _animator = GetComponentInChildren<Animator>();
-    }
 
-    private void Start()
-    {
-        if (isServer)
+        public NavMeshAgent Agent { get; set; }
+        public Transform Dest { get; set; }
+
+        private AudioSource _source;
+        public bool IsWalking { get; set; }
+        private Animator _animator;
+        public List<AudioClip> clips = new List<AudioClip>();
+
+
+        private void InitClientController()
         {
-            enabled = false;
+            _source = GetComponent<AudioSource>();
+            Agent = GetComponent<NavMeshAgent>();
+            IsWalking = true;
+            _animator = GetComponentInChildren<Animator>();
         }
-        else
+
+        private void Start()
         {
-            InitClientController();
+            if (isServer)
+            {
+                enabled = false;
+            }
+            else
+            {
+                InitClientController();
+            }
         }
-    }
-    private void Update()
-    {
-        bool isDestSet = Dest != null && Dest.gameObject.activeSelf;
-        if (isDestSet && IsWalking)
+        private void Update()
         {
-            Agent.SetDestination(Dest.position);
+            bool isDestSet = Dest != null && Dest.gameObject.activeSelf;
+            if (isDestSet && IsWalking)
+            {
+                Agent.SetDestination(Dest.position);
+            }
         }
-    }
-    public void SetAnim(string animName, bool isOn)
-    {
-        _animator.SetBool(animName, isOn);
-    }
+        public void SetAnim(string animName, bool isOn)
+        {
+            _animator.SetBool(animName, isOn);
+        }
 
-    public void Scream(int random)
-    {
-        _source.PlayOneShot(_source.clip);
-        _source.clip = clips[random];
-        _source.PlayOneShot(_source.clip);
+        public void Scream(int random)
+        {
+            _source.PlayOneShot(_source.clip);
+            _source.clip = clips[random];
+            _source.PlayOneShot(_source.clip);
+
+        }
+
+        public void SetAgentSpeed(float speed)
+        {
+            Agent.speed = speed;
+        }
 
     }
-
-    public void SetAgentSpeed(float speed)
-    {
-        Agent.speed = speed;
-    }
-
 }

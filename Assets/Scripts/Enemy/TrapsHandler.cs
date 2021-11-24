@@ -1,57 +1,59 @@
 ﻿using System.Collections;
+using Traps;
 using UnityEngine;
 
-using UnityEngine.Networking;
-
-public class TrapsHandler : MonoBehaviour
+namespace Enemy
 {
-    private Snares _snares;
-    private EnemyControllerServer _enemyController;
-
-
-    private void Start()
+    public class TrapsHandler : MonoBehaviour
     {
-        _enemyController = GetComponentInParent<EnemyControllerServer>();
-    }
+        private Snares _snares;
+        private EnemyControllerServer _enemyController;
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Snares") && _enemyController.enabled && _enemyController.CurrentState != EnemyControllerServer.EnemyState.Blocked)
+
+        private void Start()
         {
+            _enemyController = GetComponentInParent<EnemyControllerServer>();
+        }
 
-            Debug.Log("Snares kurwa");
-            _enemyController.TurnOnWalking(false);
-            _enemyController.CurrentState = EnemyControllerServer.EnemyState.Blocked;
-            _enemyController.SetAnim("blocked", true);
-            _snares = other.GetComponent<Snares>();
-            StartCoroutine(Freeze());
-            _snares.EnemiesCounter++;
-            if (_snares.EnemiesCounter == _snares.EnemiesToDestroy)
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Snares") && _enemyController.enabled && _enemyController.CurrentState != EnemyControllerServer.EnemyState.Blocked)
             {
-                _snares.RpcDestroySnares(_snares.InitialPosAndTag);
+
+                Debug.Log("Snares kurwa");
+                _enemyController.TurnOnWalking(false);
+                _enemyController.CurrentState = EnemyControllerServer.EnemyState.Blocked;
+                _enemyController.SetAnim("blocked", true);
+                _snares = other.GetComponent<Snares>();
+                StartCoroutine(Freeze());
+                _snares.EnemiesCounter++;
+                if (_snares.EnemiesCounter == _snares.EnemiesToDestroy)
+                {
+                    _snares.RpcDestroySnares(_snares.InitialPosAndTag);
+                }
             }
         }
-    }
 
     
     
-    IEnumerator Freeze()
-    {
-        yield return new WaitForSeconds(_snares.freezeTime);
-        _enemyController._damageDest = null;
-        _enemyController.CurrentState = _enemyController.PreviousState;
-        switch (_enemyController.CurrentState)
+        IEnumerator Freeze()
         {
-            case EnemyControllerServer.EnemyState.Running:
-                _enemyController.SetAnim("running", true);
-                _enemyController.SetAnim("blocked", false);
-                _enemyController.TurnOnWalking(true);
+            yield return new WaitForSeconds(_snares.freezeTime);
+            _enemyController._damageDest = null;
+            _enemyController.CurrentState = _enemyController.PreviousState;
+            switch (_enemyController.CurrentState)
+            {
+                case EnemyControllerServer.EnemyState.Running:
+                    _enemyController.SetAnim("running", true);
+                    _enemyController.SetAnim("blocked", false);
+                    _enemyController.TurnOnWalking(true);
 
-                break;
-            case EnemyControllerServer.EnemyState.Walking:
-                _enemyController.SetAnim("blocked", false);
-                _enemyController.TurnOnWalking(true);
-                break;
+                    break;
+                case EnemyControllerServer.EnemyState.Walking:
+                    _enemyController.SetAnim("blocked", false);
+                    _enemyController.TurnOnWalking(true);
+                    break;
+            }
         }
     }
 }

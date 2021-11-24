@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Enemy;
+using GameLogic;
 using UnityEngine;
 using UnityEngine.Networking;
 

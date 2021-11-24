@@ -1,25 +1,26 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using GameLogic;
 using UnityEngine;
 
-public class Arrow : MonoBehaviour
+namespace UI
 {
-    private bool isSet = false;
-    private GameObject target;
-    void Update()
+    public class Arrow : MonoBehaviour
     {
-        if (isSet)
+        private bool isSet = false;
+        private GameObject target;
+        void Update()
         {
-            Vector3 targetPosition = target.transform.position;
-            targetPosition.y = transform.position.y;
-            transform.LookAt(targetPosition);
+            if (isSet)
+            {
+                Vector3 targetPosition = target.transform.position;
+                targetPosition.y = transform.position.y;
+                transform.LookAt(targetPosition);
+            }
         }
-    }
 
-    public void setTarget()
-    {
-        target = GameManager.Instance.currentChest;
-        isSet = true;
+        public void setTarget()
+        {
+            target = GameManager.Instance.currentChest;
+            isSet = true;
+        }
     }
 }
