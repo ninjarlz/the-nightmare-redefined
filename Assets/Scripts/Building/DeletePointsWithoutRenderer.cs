@@ -10,7 +10,7 @@ namespace Building
             foreach (Transform child in transform)
             {
                 GridPoint gridPoint = child.GetComponent<GridPoint>();
-                if (gridPoint.GetSpriteRenderer() == null)
+                if (gridPoint.SpriteRenderer == null)
                 {
                     DestroyImmediate(child.gameObject);
                 }

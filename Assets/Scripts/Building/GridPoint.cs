@@ -11,8 +11,14 @@ namespace Building
 
         [SerializeField] private Sprite _red;
         private Sprite _green;
+        
         [SerializeField] private SpriteRenderer _sprite;
-
+        public SpriteRenderer SpriteRenderer
+        {
+            get => _sprite;
+            set => _sprite = value;
+        }
+        
         [SerializeField] private bool _buildable = true;
         public bool Buildable
         {
@@ -29,26 +35,13 @@ namespace Building
             InitGridSprites();
         }
 
-        public void SetSpriteRenderer(GameObject gridRender)
+        private void ChangeSprite(bool isBuildable)
         {
-            _sprite = gridRender.GetComponent<SpriteRenderer>();
-        }
-
-        public SpriteRenderer GetSpriteRenderer()
-        {
-            return _sprite;
-        }
-
-        private void ChangeSprite(bool isGreen)
-        {
-            Debug.Log("Changing colour");
-            if (isGreen) 
+            if (isBuildable) 
             {
-                Debug.Log("Changing to green");
                 _sprite.sprite = _green;
                 return;
             }
-            Debug.Log("Changing to red");
             _sprite.sprite = _red;
         }
 

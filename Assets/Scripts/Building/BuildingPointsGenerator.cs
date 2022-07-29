@@ -95,7 +95,7 @@ namespace Building
             point.AddComponent<GridPoint>();
             var spriteRenderer = Instantiate(_gridPointPrefab, new Vector3(x, roomCanvas.transform.position.y, y), 
                 Quaternion.Euler(90f, 0f, 0f), roomCanvas.transform);
-            point.GetComponent<GridPoint>().SetSpriteRenderer(spriteRenderer);
+            point.GetComponent<GridPoint>().SpriteRenderer = spriteRenderer.GetComponent<SpriteRenderer>();
         }
 
         private void SetUpAreas(Room room, GameObject emptyObject)
