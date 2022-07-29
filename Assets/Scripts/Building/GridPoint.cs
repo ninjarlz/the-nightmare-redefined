@@ -6,8 +6,8 @@ namespace Building
     public class GridPoint : MonoBehaviour
     {
 
-        private const string RED_COLOUR = "red";
-        private const string GREEN_COLOUR = "green";
+        private const string RedColour = "red";
+        private const string GreenColour = "green";
 
         [SerializeField] private Sprite _red;
         private Sprite _green;
@@ -54,8 +54,8 @@ namespace Building
 
         private void InitGridSprites()
         {
-            _red = (Sprite)Resources.Load(RED_COLOUR, typeof(Sprite));
-            _green = (Sprite)Resources.Load(GREEN_COLOUR, typeof(Sprite));
+            _red = (Sprite) Resources.Load(RedColour, typeof(Sprite));
+            _green = (Sprite) Resources.Load(GreenColour, typeof(Sprite));
         }
     }
 }

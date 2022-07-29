@@ -205,13 +205,15 @@ namespace Player.FPS
         [ClientRpc]
         public void RpcTakeDamage(float damage)
         {
-            if (_isDead) return;
-
+            if (_isDead)
+            {
+                return;
+            }
             _currentHealth -= damage;
-
-            //Debug.Log(transform.name + " now has " + _currentHealth + " health.");
-
-            if (_currentHealth <= 0) Die();
+            if (_currentHealth <= 0)
+            {
+                Die();
+            }
         }
 
         private void Die()

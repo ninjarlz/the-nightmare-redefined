@@ -5,7 +5,6 @@ namespace Building
     [ExecuteInEditMode]
     public class MeshColliderGenerator : MonoBehaviour
     {
-        // Start is called before the first frame update
         void Awake()
         {
             AddMeshColliderRecursively(transform);

@@ -14,8 +14,6 @@ namespace GameLogic
 {
     public class GameManager : NetworkBehaviour
     {
-
-    
         public static GameManager Instance;
         private List<GameObject> _rooms = new List<GameObject>();
         public List<GameObject> Rooms => _rooms;
@@ -209,10 +207,21 @@ namespace GameLogic
         public GameObject[] FloorsToDisable => _floorsToDisable;
         private TextMeshProUGUI _readyPlayers;
 
-        void Awake()
+        private void SetUpInstance()
         {
-            if (Instance != null) Debug.LogError("More than one GameManager in scene!");
-            else Instance = this;
+            if (Instance != null)
+            {
+                Debug.LogError("More than one GameManager in scene!");
+            }
+            else
+            {
+                Instance = this;
+            }
+        }
+
+        private void Awake()
+        {
+            SetUpInstance();
             Transform rooms = GameObject.Find(ObjectsLabels.ROOMS).transform;
             for (int i = 0; i < rooms.childCount; i++)
             {
@@ -375,20 +384,9 @@ namespace GameLogic
                 spriteRenderer.enabled = isOn;
         }
 
-        public static void Win()
-        {
-            //Debug.Break();
-        }
-
-        public static void Lose()
-        {
-            //Debug.Break();
-        }
-
         [ClientRpc]
         void RpcPauseGame()
         {
-            //Debug.Break();
         }
         #endregion
 
