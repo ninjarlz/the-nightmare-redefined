@@ -100,7 +100,12 @@ ModelImporter:
     2300000: group2
     3300000: group2
     4300000: group2
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: green
+    second: {fileID: 2100010, guid: d73f80e67cea0cb7696aa5f0fdeceb3c, type: 3}
   materials:
     importMaterials: 1
     materialName: 0

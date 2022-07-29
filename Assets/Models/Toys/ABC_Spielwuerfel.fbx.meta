@@ -100,7 +100,27 @@ ModelImporter:
     2300000: typeMesh4
     3300000: typeMesh4
     4300000: typeMesh4
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert1
+    second: {fileID: 2100000, guid: cfadeda5c64d490468a9f3d95902f9b9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert3
+    second: {fileID: 2100000, guid: e115d387da2346f46a62e884f5b774c9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert5
+    second: {fileID: 2100000, guid: 1a3ca15aa1080ac4e9a4ace42ab34c1b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: zielony
+    second: {fileID: 2100000, guid: da01a7991dcf8284d9156752dd47e9c3, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
