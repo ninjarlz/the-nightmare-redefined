@@ -182,7 +182,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHealth: 100
   _damageDest: {fileID: 0}
+  _isDying: 0
   _damage: 2
+  _colliders: []
+  clips: []
 --- !u!114 &1860152029020784033
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,6 +198,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97255443c2938e34f82a0258a67652bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _clips:
+  - {fileID: 8300000, guid: 357abf0c1024c8f40a1b1fb8e215469d, type: 3}
+  - {fileID: 8300000, guid: 58a2ef5bda4365c44933358fbf67e760, type: 3}
+  - {fileID: 8300000, guid: fc68b8d4bff4c2e4c949d6cdf12cae86, type: 3}
+  - {fileID: 8300000, guid: f705f5e2aa8f3a04b80a95382b5f36e1, type: 3}
+  - {fileID: 8300000, guid: 9e948e046a068034dad9170dbdf8f616, type: 3}
+  - {fileID: 8300000, guid: 6c450356411f2464a841986f750f176b, type: 3}
 --- !u!82 &6242839686703534753
 AudioSource:
   m_ObjectHideFlags: 0
@@ -346,11 +356,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2300000, guid: dcf2fd516c384a821ba6ca11ddee9b2b, type: 3}
+    - target: {fileID: 2300002, guid: dcf2fd516c384a821ba6ca11ddee9b2b, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: ff208ab25424385ceb10fed9cc151ead, type: 2}
-    - target: {fileID: 2300002, guid: dcf2fd516c384a821ba6ca11ddee9b2b, type: 3}
+    - target: {fileID: 2300000, guid: dcf2fd516c384a821ba6ca11ddee9b2b, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: ff208ab25424385ceb10fed9cc151ead, type: 2}

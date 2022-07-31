@@ -10,12 +10,13 @@ namespace Enemy
 
         public NavMeshAgent Agent { get; set; }
         public Transform Dest { get; set; }
-
+        [SerializeField] private List<AudioClip> _clips = new List<AudioClip>();
+        
         private AudioSource _source;
         public bool IsWalking { get; set; }
+        
         private Animator _animator;
-        public List<AudioClip> clips = new List<AudioClip>();
-
+        public Animator Animator => _animator;
 
         private void InitClientController()
         {
@@ -25,42 +26,38 @@ namespace Enemy
             _animator = GetComponentInChildren<Animator>();
         }
 
+        private bool IsDestinationSet()
+        {
+            return Dest != null && Dest.gameObject.activeSelf;
+        }
+
+        private bool ShouldWalk()
+        {
+            return IsDestinationSet() && IsWalking;
+        }
+
         private void Start()
         {
             if (isServer)
             {
                 enabled = false;
+                return;
             }
-            else
-            {
-                InitClientController();
-            }
+            InitClientController();
         }
         private void Update()
         {
-            bool isDestSet = Dest != null && Dest.gameObject.activeSelf;
-            if (isDestSet && IsWalking)
+            if (!ShouldWalk())
             {
-                Agent.SetDestination(Dest.position);
+                return;
             }
+            Agent.SetDestination(Dest.position);
         }
-        public void SetAnim(string animName, bool isOn)
-        {
-            _animator.SetBool(animName, isOn);
-        }
-
         public void Scream(int random)
         {
             _source.PlayOneShot(_source.clip);
-            _source.clip = clips[random];
+            _source.clip = _clips[random];
             _source.PlayOneShot(_source.clip);
-
         }
-
-        public void SetAgentSpeed(float speed)
-        {
-            Agent.speed = speed;
-        }
-
     }
 }

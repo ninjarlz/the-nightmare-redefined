@@ -349,7 +349,7 @@ namespace Enemy
             if (!isServer)
             {
                 EnemyControllerClient enemyControllerClient = GetComponent<EnemyControllerClient>();
-                enemyControllerClient.SetAnim(animName, isOn);
+                enemyControllerClient.Animator.SetBool(animName, isOn);
             }
         }
 
@@ -432,7 +432,7 @@ namespace Enemy
             if (!isServer)
             {
                 EnemyControllerClient enemyControllerClient = GetComponent<EnemyControllerClient>();
-                enemyControllerClient.SetAgentSpeed(speed);
+                enemyControllerClient.Agent.speed = speed;
             }
         }
 
